@@ -18,11 +18,6 @@ if (!class_exists('database')) {
                 $password = "9f26e3bd";
                 $database  = "heroku_083f8ff0a68d8e1";		        
 		    }
-            
-            $hostname = "us-cdbr-east-06.cleardb.net";
-                $username  = "b4acded5958781";
-                $password = "9f26e3bd";
-                $database  = "heroku_083f8ff0a68d8e1";  
 			
 			$conn = mysqli_connect($hostname,$username,$password,$database) or die ("could not connect to mysql"); 
 			mysqli_set_charset($conn,"utf8");	
