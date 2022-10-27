@@ -33,7 +33,7 @@ $data_stock = array();
 $data_random = array();
 
 $n = 0;
-$max = 0;
+$max = 100;
 $k = 1;
 foreach ($array as $key => $value) {
     $data_name[$key] = $value["name"];
@@ -93,7 +93,7 @@ foreach ($array as $key => $value) {
         </div>  
     </div>
     <div class="col-md-6  col-sm-12">
-        <button type="button" class="btn btn-block btn-success btn-random">สุ่ม 100 ครั้ง</button>
+        <button type="button" class="btn btn-block btn-success btn-random">สุ่ม <?=$max;?> ครั้ง</button>
     
          <div class="thumbnail margin-top-10">
             <div id="divShow">
@@ -105,6 +105,8 @@ foreach ($array as $key => $value) {
     function addList(id,html,time) { 
           setTimeout(function(x, y) {
                $("#list-"+id).html(html);
+               
+               window.location.hash = "#list-"+id;
           }, time);
      }
 
@@ -125,6 +127,7 @@ foreach ($array as $key => $value) {
                  url: "article_2.php",
                 type : "POST",
                 success : function(json) {
+                    div.html(json);      
                     var datalist = json.datalist;
                     var data_random = json.data_random;
                     var data_sum = json.data_sum;
@@ -141,6 +144,8 @@ foreach ($array as $key => $value) {
                         var list2 = list.append(html);
                     }
                     
+                     list.append('<li id="list-end"></div>');
+                    
                     var time = 200;
                     for (kk in data_random) {
                         var data = datalist[data_random[kk]];
@@ -150,12 +155,14 @@ foreach ($array as $key => $value) {
                         html += " = <b style='color:green'>"+name+"<b>";
                         
                         addList(kk, html, time);
-                        time+=40;
+                        time+=50;
                     }
+                    
+                     addList('end', "<b style='color:green;'>-End-", time);
                     
                     setTimeout(function() {
                         btn.prop("disabled",false);
-                        btn.html('สุ่ม 100 ครั้ง');
+                        btn.html('สุ่ม <?=$max;?> ครั้ง');
                         
                          rows.each(function(k) {
                              var key = $(this).data("key");
@@ -166,10 +173,17 @@ foreach ($array as $key => $value) {
                              var stock = data.stock;
                              var sum = data_sum[key];
                              var total = stock-sum;
-                             col_1.html(sum);
-                             col_2.html(total);
+                             
+                             if(!isNaN(total)){
+                                 col_1.html(sum);
+                                 col_2.html(total);    
+                             }else{
+                                 col_1.html(0);
+                                 col_2.html(stock);
+                             }
                          }); 
-                    }, time);                    
+                    }, time);  
+                               
                 }
             });
         }); 
@@ -177,45 +191,30 @@ foreach ($array as $key => $value) {
     </script>
  <?php }else if($action=="random"){ ?>
 <?php
-    function w_rand($samples, $weights) {  
-        if(count($samples) != count($weights)){ 
-            return null; 
-        } 
+    function random($data_stock2=array(),$data_chance=array()){
+        $array = array();
+        foreach ($data_stock2 as $kk=>$val){
+            $array = array_merge($array, array_fill(0, ($data_chance[$kk]*100), $kk));
+        }
         
-        $sum    = array_sum($weights) * 1;
-        $rand   = mt_rand(1, $sum);  
-        
-        foreach ($weights as $i=>$w){  
-            $weights[$i] = $w * 1 + ( $i > 0 ? $weights[$i-1] : 0 );  
-            if ($rand <= $weights[$i] ) {
-                 return $samples[$i]; 
-            }  
-        }  
-    }  
-
-    $max =100;
+        $random = $array[array_rand($array)];
+        return $random;
+    }
+    
     $random = array();
     $sum = array();
     $data_random = array();
     $data_stock2 = $data_stock ;
       for($i=1;$i<=$max;$i++){
-          //$random2 = w_rand($data_stock2, $data_chance);
-          //echo $random2;
-          //echo "<br>";
-      
-         $random =  array_rand($data_stock2); 
-          if(isset($sum[$random])){
-              $sum[$random]--;
-          }else{
-              $sum[$random]=$data_stock[$random]-1;
-          }
+          $random = random($data_stock2,$data_chance);
           
-          if($sum[$random]==1){
+          if($data_stock2[$random]==1){
               unset($data_stock2[$random]);
+          }else{
+              $data_stock2[$random] = $data_stock2[$random]-1;
           }
           
-          
-       $data_random[$i] = $random;
+        $data_random[$i] = $random;
     }
         
     $data_sum = array_count_values($data_random);
