@@ -5,11 +5,19 @@ if (!class_exists('database')) {
 		public $conn;
 		
 		function __construct() {
-			
-			$hostname = "localhost";
-			$username  = "root";
-			$password = "";
-			$database  = "test";
+		    include '../config/config.php';
+            
+		    if($environment=="testing"){
+                $hostname = "localhost";
+                $username  = "root";
+                $password = "";
+                $database  = "test";
+		    }else{
+                $hostname = "us-cdbr-east-06.cleardb.net";
+                $username  = "b3617e45bc9a22";
+                $password = "19465d2d";
+                $database  = "heroku_76916d05f74cd23";		        
+		    }
 			
 			$conn = mysqli_connect($hostname,$username,$password,$database) or die ("could not connect to mysql"); 
 			mysqli_set_charset($conn,"utf8");	

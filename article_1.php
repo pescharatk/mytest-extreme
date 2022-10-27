@@ -7,13 +7,14 @@ if(empty($keypage) && $content==0){
 }
 
 include 'config/config.php';
+include 'config/function.php';
 ?>
 
  <?php if($action==""){?>
  <?php
  $s_keywords = (isset($_POST["s_keywords"])) ?$_POST["s_keywords"]: "";
  $val_keywords = trim(str_replace(" ", "", $s_keywords));
-
+ 
 $json = call_api("POST",URL_API_USER_DATALIST);
 $array = json_decode($json,true);
 $datalist = json_decode($array["data"],true);

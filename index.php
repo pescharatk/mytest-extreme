@@ -3,6 +3,7 @@ $keypage=1;
 $page = (!empty($_GET["page"])) ?$_GET["page"]: "0";
  
  include 'config/config.php';
+ include 'config/function.php';
  
 $pageData = array();
 $pageData = array(
@@ -31,6 +32,7 @@ foreach ($pageData as $key => $value) {
        <title><?=$page_name;?></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
@@ -112,6 +114,5 @@ foreach ($pageData as $key => $value) {
     </div>
     
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
     </body>
 </html>             

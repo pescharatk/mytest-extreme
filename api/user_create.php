@@ -48,6 +48,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     
     echo json_encode(array('response' => $response, 'message' => $message,"id"=>$insert_id));
+}else{
+    echo  json_encode(array('response' => "F", 'message' => "Request Method Failed."));
 }
 ?>
     

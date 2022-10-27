@@ -199,7 +199,9 @@ foreach ($array as $key => $value) {
     $data_random = array();
     $data_stock2 = $data_stock ;
       for($i=1;$i<=$max;$i++){
-         //$random = w_rand($data_stock2, $data_chance);
+          //$random2 = w_rand($data_stock2, $data_chance);
+          //echo $random2;
+          //echo "<br>";
       
          $random =  array_rand($data_stock2); 
           if(isset($sum[$random])){
@@ -218,7 +220,7 @@ foreach ($array as $key => $value) {
         
     $data_sum = array_count_values($data_random);
     
-   echo  json_encode(array("datalist"=>$array,"data_random"=>$data_random,"data_sum"=>$data_sum));
+    echo  json_encode(array("datalist"=>$array,"data_random"=>$data_random,"data_sum"=>$data_sum));
 ?>
  
  <?php } ?>
