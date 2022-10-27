@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL); 
+
 $keypage=1;
 $page = (!empty($_GET["page"])) ?$_GET["page"]: "0";
  
