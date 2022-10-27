@@ -7,7 +7,6 @@ if($_SERVER["SERVER_NAME"]==$folder_name.".herokuapp.com"){
     }
     $pageURL .= "://";
     $pageURL .= $_SERVER["SERVER_NAME"];
-    $pageURL .= "/";
     $environment = "deploy";
 }else{
     $pageURL = 'http://'.$_SERVER["SERVER_NAME"]."/".$folder_name;
