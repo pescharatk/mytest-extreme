@@ -1,5 +1,5 @@
 <?php
-$folder_name = "mytest-extreme";
+$folder_name = "test-extreme";
 
 if (!defined('URL_API_USER_GETDATA'))
     define('URL_API_USER_GETDATA', "http://localhost/".$folder_name."/api/user_getdata.php");
