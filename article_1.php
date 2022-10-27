@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <?php
 $content = (!empty($_POST["content"])) ?$_POST["content"]: 0;
 $action = (!empty($_POST["action"])) ?$_POST["action"]: "";
@@ -9,7 +10,6 @@ if(empty($keypage) && $content==0){
 include 'config/config.php';
 include 'config/function.php';
 ?>
-
  <?php if($action==""){?>
  <?php
  $s_keywords = (isset($_POST["s_keywords"])) ?$_POST["s_keywords"]: "";

@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <?php
 $content = (!empty($_POST["content"])) ?$_POST["content"]: 0;
 $action = (!empty($_POST["action"])) ?$_POST["action"]: "";
